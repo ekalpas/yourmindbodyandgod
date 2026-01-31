@@ -848,3 +848,9 @@ img {
         padding: var(--spacing-md);
     }
 }
+
+/* Hide Kit branding */
+.formkit-powered-by-convertkit-container,
+[data-element="powered-by"] {
+    display: none !important;
+}

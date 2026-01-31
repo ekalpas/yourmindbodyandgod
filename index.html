@@ -87,11 +87,8 @@
                     </ul>
                 </div>
                 <div class="lead-magnet-form">
-                    <!-- Replace with your email provider embed code -->
-                    <form id="email-form" class="email-form">
-                        <input type="email" name="email" placeholder="Your email address" required>
-                        <button type="submit" class="btn btn-primary">Send Me the Guide</button>
-                    </form>
+                    <!-- Kit (ConvertKit) Email Signup Form -->
+                    <script async data-uid="3dfcd03a64" src="https://mind-body-god.kit.com/3dfcd03a64/index.js"></script>
                     <p class="form-note">Join 500+ people learning to live at zero. Unsubscribe anytime.</p>
                 </div>
             </div>
@@ -265,5 +262,18 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- Customize Kit form button text -->
+    <script>
+        // Wait for Kit form to load and customize button text
+        const observer = new MutationObserver((mutations, obs) => {
+            const kitButton = document.querySelector('[data-element="submit"] span');
+            if (kitButton && kitButton.textContent === 'Subscribe') {
+                kitButton.textContent = 'Send Me the Guide';
+                obs.disconnect();
+            }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    </script>
 </body>
 </html>

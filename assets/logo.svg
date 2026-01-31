@@ -1,0 +1,19 @@
+<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="wave1b" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#2d8a9e"/>
+            <stop offset="100%" style="stop-color:#8ed3e8"/>
+        </linearGradient>
+    </defs>
+    <rect width="400" height="160" fill="#0d3b4c"/>
+    <!-- Top wave -->
+    <path d="M0 25 Q50 15, 100 25 T200 25 T300 25 T400 25" fill="none" stroke="url(#wave1b)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <!-- Text -->
+    <text x="200" y="55" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#57a0b8" letter-spacing="10">YOUR</text>
+    <text x="200" y="88" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#c9e8f0" font-weight="600" letter-spacing="2">MIND, BODY &amp; GOD</text>
+    <!-- Tagline -->
+    <text x="200" y="115" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#2d8a9e" letter-spacing="4" font-style="italic">Holistic Transformation</text>
+    <!-- Bottom wave -->
+    <path d="M0 135 Q50 145, 100 135 T200 135 T300 135 T400 135" fill="none" stroke="url(#wave1b)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M0 145 Q50 155, 100 145 T200 145 T300 145 T400 145" fill="none" stroke="#57a0b8" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+</svg>

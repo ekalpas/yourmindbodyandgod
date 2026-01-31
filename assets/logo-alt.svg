@@ -1,0 +1,13 @@
+<svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="170" fill="#0d3b4c"/>
+    <!-- Layered waves at bottom -->
+    <path d="M0 115 Q100 95, 200 115 T400 115 L400 170 L0 170 Z" fill="#1a5f7a" opacity="0.35"/>
+    <path d="M0 130 Q100 110, 200 130 T400 130 L400 170 L0 170 Z" fill="#2d8a9e" opacity="0.3"/>
+    <path d="M0 145 Q100 130, 200 145 T400 145 L400 170 L0 170 Z" fill="#57a0b8" opacity="0.2"/>
+    <path d="M0 158 Q100 148, 200 158 T400 158 L400 170 L0 170 Z" fill="#8ed3e8" opacity="0.1"/>
+    <!-- Text -->
+    <text x="200" y="38" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#8ed3e8" letter-spacing="8">YOUR</text>
+    <text x="200" y="72" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#c9e8f0" font-weight="600" letter-spacing="2">MIND, BODY &amp; GOD</text>
+    <!-- Tagline -->
+    <text x="200" y="98" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#57a0b8" letter-spacing="4" font-style="italic">Holistic Transformation</text>
+</svg>

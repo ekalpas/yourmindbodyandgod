@@ -576,6 +576,14 @@ img {
     align-items: center;
 }
 
+.about-photo {
+    width: 100%;
+    max-width: 400px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    object-fit: cover;
+}
+
 .about-photo-placeholder {
     aspect-ratio: 3/4;
     background: linear-gradient(135deg, var(--mist), var(--seafoam));

@@ -493,6 +493,12 @@
     .faq-grid {
         grid-template-columns: 1fr;
     }
+
+    /* Pricing tiers responsive */
+    .course-pricing [style*="grid-template-columns: repeat(3"] {
+        grid-template-columns: 1fr !important;
+        max-width: 500px !important;
+    }
 }
 
 @media (max-width: 600px) {

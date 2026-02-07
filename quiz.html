@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Your Dating Pattern? | Mind, Body & God</title>
+    <meta name="description" content="Discover the wound underneath your attractions in 2 minutes. Take the free dating pattern quiz from Marilyn Burrell.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .quiz-page {
+            padding: calc(var(--spacing-xl) + 80px) 0 var(--spacing-xl);
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, var(--deep-ocean), var(--ocean-blue));
+            color: var(--white);
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p {
+            color: var(--seafoam);
+            font-size: 0.875rem;
+        }
+
+        .progress-container {
+            padding: 1.25rem 2.5rem;
+            background: var(--off-white);
+            border-bottom: 1px solid var(--mist);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--mist);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--seafoam));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.625rem;
+            font-size: 0.75rem;
+            color: var(--sky-water);
+        }
+
+        .quiz-content {
+            padding: 2.5rem;
+        }
+
+        .question-section {
+            display: none;
+        }
+
+        .question-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--mist);
+            margin-bottom: -0.5rem;
+        }
+
+        .question-text {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--ocean-blue);
+            margin-bottom: 1.875rem;
+            line-height: 1.4;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            background: var(--off-white);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .answer-option:hover {
+            background: var(--mist);
+            border-color: var(--seafoam);
+        }
+
+        .answer-option.selected {
+            background: linear-gradient(135deg, var(--mist), var(--seafoam));
+            border-color: var(--teal);
+        }
+
+        .answer-option input { display: none; }
+
+        .answer-circle {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--seafoam);
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .answer-option.selected .answer-circle {
+            background: var(--teal);
+            border-color: var(--teal);
+        }
+
+        .answer-circle::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--white);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .answer-option.selected .answer-circle::after { opacity: 1; }
+
+        .answer-text {
+            font-size: 0.875rem;
+            color: var(--text-dark);
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--mist);
+        }
+
+        .quiz-btn {
+            padding: 0.875rem 1.75rem;
+            border-radius: 30px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: var(--font-body);
+        }
+
+        .quiz-btn-back {
+            background: var(--mist);
+            color: var(--ocean-blue);
+        }
+
+        .quiz-btn-back:hover { background: var(--seafoam); }
+
+        .quiz-btn-next {
+            background: linear-gradient(135deg, var(--ocean-blue), var(--teal));
+            color: var(--white);
+        }
+
+        .quiz-btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(45, 138, 158, 0.3);
+        }
+
+        .quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Results */
+        .results-section {
+            display: none;
+            text-align: center;
+        }
+
+        .results-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-pattern {
+            background: linear-gradient(135deg, var(--deep-ocean), var(--ocean-blue));
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.875rem;
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--seafoam);
+            margin-bottom: 0.625rem;
+        }
+
+        .result-title {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.625rem;
+        }
+
+        .result-wound {
+            color: var(--mist);
+            font-style: italic;
+        }
+
+        .result-description {
+            text-align: left;
+            padding: 1.875rem;
+            background: var(--off-white);
+            border-radius: var(--radius-md);
+            margin-bottom: 1.875rem;
+        }
+
+        .result-description h3 {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            color: var(--ocean-blue);
+            margin-bottom: 0.9375rem;
+        }
+
+        .result-description p {
+            margin-bottom: 0.9375rem;
+            font-size: 0.875rem;
+        }
+
+        .result-description ul {
+            margin: 0.9375rem 0 0.9375rem 1.25rem;
+        }
+
+        .result-description li {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .scores-breakdown {
+            text-align: left;
+            margin-top: 1.875rem;
+            padding: 1.25rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--mist);
+        }
+
+        .scores-breakdown h4 {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--sky-water);
+            margin-bottom: 0.9375rem;
+        }
+
+        .score-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .score-label {
+            width: 140px;
+            font-size: 0.75rem;
+            color: var(--ocean-blue);
+        }
+
+        .score-track {
+            flex: 1;
+            height: 8px;
+            background: var(--mist);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--seafoam));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .score-value {
+            width: 40px;
+            text-align: right;
+            font-size: 0.75rem;
+            color: var(--sky-water);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--mist), var(--off-white));
+            padding: 1.875rem;
+            border-radius: var(--radius-md);
+            margin-top: 1.875rem;
+        }
+
+        .cta-section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--ocean-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section p {
+            font-size: 0.875rem;
+            margin-bottom: 1.25rem;
+            color: var(--sky-water);
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        /* Start Screen */
+        .start-section {
+            text-align: center;
+            padding: 1.25rem 0;
+        }
+
+        .start-section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--ocean-blue);
+            margin-bottom: 1.25rem;
+        }
+
+        .start-section p {
+            font-size: 0.875rem;
+            margin-bottom: 0.9375rem;
+            color: var(--sky-water);
+        }
+
+        .start-section .quiz-btn-next {
+            margin-top: 1.25rem;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-header, .quiz-content {
+                padding: 1.875rem 1.5rem;
+            }
+            .question-text { font-size: 1.25rem; }
+            .result-title { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/logo.svg" alt="Mind, Body & God" height="60">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="course.html">Course</a>
+                <a href="course.html#pricing" class="btn btn-nav">Enroll Now</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="quiz-page">
+        <div class="container">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h1>What's Your Dating Pattern?</h1>
+                    <p>Discover the wound underneath your attractions — in 2 minutes</p>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">10 questions &bull; Takes 2 minutes</p>
+                </div>
+
+                <div class="quiz-content">
+                    <div class="question-section start-section active" id="startSection">
+                        <h2>Ready to meet your pattern?</h2>
+                        <p>The people you keep attracting aren't random — they're mirrors.</p>
+                        <p>This quick assessment will reveal your primary dating pattern and the wound underneath it.</p>
+                        <p><em>Be honest. The insights only work if you are.</em></p>
+                        <button class="quiz-btn quiz-btn-next" onclick="startQuiz()">Start the Assessment</button>
+                    </div>
+
+                    <div id="questionsContainer"></div>
+
+                    <div class="results-section" id="resultsSection">
+                        <div class="result-pattern" id="resultPattern">
+                            <p class="result-label">Your Primary Pattern</p>
+                            <h2 class="result-title" id="resultTitle"></h2>
+                            <p class="result-wound" id="resultWound"></p>
+                        </div>
+
+                        <div class="result-description" id="resultDescription"></div>
+
+                        <div class="scores-breakdown">
+                            <h4>Your Full Pattern Breakdown</h4>
+                            <div id="scoresBreakdown"></div>
+                        </div>
+
+                        <div class="cta-section">
+                            <h3>Want to Go Deeper?</h3>
+                            <p>Get the complete PDF guide with healing paths for all 5 patterns — or dive into the full course.</p>
+                            <div class="cta-buttons">
+                                <a href="assets/5-Dating-Patterns.pdf" class="btn btn-primary btn-large" download>Download the Free Guide (PDF)</a>
+                                <a href="course.html" class="btn btn-secondary">Explore Dating as Sacred Mirror</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/logo.svg" alt="Mind, Body & God" height="50">
+                    <p>Holistic transformation for mind, body, and spirit.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="index.html#about">About Marilyn</a>
+                    <a href="course.html">Dating as Sacred Mirror</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Get in Touch</h4>
+                    <a href="mailto:marilyn@yourmindbodyandgod.com">marilyn@yourmindbodyandgod.com</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Mind, Body & God. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    const questions = [
+        {
+            text: "When someone you're dating doesn't text back for a few hours, you typically...",
+            options: [
+                { text: "Feel relieved — space is good", pattern: "unavailable" },
+                { text: "Assume they're losing interest and spiral a bit", pattern: "abandonment" },
+                { text: "Check if you did something wrong", pattern: "worthiness" },
+                { text: "Text again to make sure they're okay", pattern: "rescuer" },
+                { text: "Remember when they WERE texting constantly", pattern: "lovebomber" }
+            ]
+        },
+        {
+            text: "You're most attracted to people who are...",
+            options: [
+                { text: "A little mysterious or hard to read", pattern: "unavailable" },
+                { text: "Intense and all-in from the start", pattern: "lovebomber" },
+                { text: "Going through something and need support", pattern: "rescuer" },
+                { text: "Strong-willed with clear opinions", pattern: "worthiness" },
+                { text: "Stable but... honestly kind of boring?", pattern: "abandonment" }
+            ]
+        },
+        {
+            text: "In past relationships, you've often felt...",
+            options: [
+                { text: "Like you were always the one putting in more effort", pattern: "unavailable" },
+                { text: "Amazing at first, then confused when things changed", pattern: "lovebomber" },
+                { text: "Like you were waiting for them to leave", pattern: "abandonment" },
+                { text: "Needed and important — maybe too important", pattern: "rescuer" },
+                { text: "Like you were constantly adjusting to keep them happy", pattern: "worthiness" }
+            ]
+        },
+        {
+            text: "When a relationship ends, your first thought is usually...",
+            options: [
+                { text: "\"I knew this would happen\"", pattern: "abandonment" },
+                { text: "\"What did I do wrong?\"", pattern: "worthiness" },
+                { text: "\"If only I'd tried harder to help them\"", pattern: "rescuer" },
+                { text: "\"I should have seen the warning signs\"", pattern: "lovebomber" },
+                { text: "\"They never really let me in anyway\"", pattern: "unavailable" }
+            ]
+        },
+        {
+            text: "Which statement feels most true for you?",
+            options: [
+                { text: "I often feel like I'm chasing people who can't fully show up", pattern: "unavailable" },
+                { text: "The beginning of relationships is always the best part", pattern: "lovebomber" },
+                { text: "I'm always waiting for the other shoe to drop", pattern: "abandonment" },
+                { text: "I tend to date people who need a lot of support", pattern: "rescuer" },
+                { text: "I often lose myself in relationships", pattern: "worthiness" }
+            ]
+        },
+        {
+            text: "When things are going well in dating, you...",
+            options: [
+                { text: "Feel suspicious — this can't last", pattern: "abandonment" },
+                { text: "Want MORE — bring on the intensity", pattern: "lovebomber" },
+                { text: "Feel a little... bored? Restless?", pattern: "unavailable" },
+                { text: "Look for ways to help them even more", pattern: "rescuer" },
+                { text: "Wonder if you're doing enough to keep them", pattern: "worthiness" }
+            ]
+        },
+        {
+            text: "The word that best describes your dating history is...",
+            options: [
+                { text: "Chasing", pattern: "unavailable" },
+                { text: "Intense", pattern: "lovebomber" },
+                { text: "Anxious", pattern: "abandonment" },
+                { text: "Exhausting", pattern: "rescuer" },
+                { text: "Disappearing", pattern: "worthiness" }
+            ]
+        },
+        {
+            text: "You've probably said (or thought) this about a partner:",
+            options: [
+                { text: "\"They just need time to open up\"", pattern: "unavailable" },
+                { text: "\"No one has ever made me feel this way before\"", pattern: "lovebomber" },
+                { text: "\"I don't know what I'd do if they left\"", pattern: "abandonment" },
+                { text: "\"I see so much potential in them\"", pattern: "rescuer" },
+                { text: "\"I just want to make them happy\"", pattern: "worthiness" }
+            ]
+        },
+        {
+            text: "Your friends would probably say your dating pattern is...",
+            options: [
+                { text: "Going for people who aren't available", pattern: "unavailable" },
+                { text: "Getting swept up in whirlwind romances", pattern: "lovebomber" },
+                { text: "Being too afraid of getting hurt", pattern: "abandonment" },
+                { text: "Trying to fix or save people", pattern: "rescuer" },
+                { text: "Giving too much and losing yourself", pattern: "worthiness" }
+            ]
+        },
+        {
+            text: "Deep down, your biggest fear in dating is...",
+            options: [
+                { text: "Never being truly seen or known", pattern: "unavailable" },
+                { text: "That the intensity won't last", pattern: "lovebomber" },
+                { text: "Being left", pattern: "abandonment" },
+                { text: "Not being needed", pattern: "rescuer" },
+                { text: "Not being good enough", pattern: "worthiness" }
+            ]
+        }
+    ];
+
+    const patterns = {
+        unavailable: {
+            title: "The Unavailable One",
+            wound: "The Intimacy Wound",
+            description: `
+                <h3>What This Means</h3>
+                <p>You're drawn to people who are just out of reach — emotionally distant, physically unavailable, or "complicated." The chase feels exciting, but connection stays elusive.</p>
+                <h3>The Wound Underneath</h3>
+                <p>Attraction to unavailable people often masks your own fear of true intimacy. If they can't fully show up, you don't have to either. The distance feels safe.</p>
+                <h3>Signs This Is Your Pattern</h3>
+                <ul>
+                    <li>Available people seem "boring" or too easy</li>
+                    <li>You work hard to earn someone's attention</li>
+                    <li>"Complicated" feels more exciting than simple</li>
+                    <li>You've said "they just need time to open up" multiple times</li>
+                </ul>
+                <h3>The Healing Question</h3>
+                <p><em>In what ways am I unavailable — to others, and to myself?</em></p>
+            `
+        },
+        lovebomber: {
+            title: "The Love Bomber",
+            wound: "The Validation Wound",
+            description: `
+                <h3>What This Means</h3>
+                <p>You're drawn to intense, fast-moving connections — people who come on strong with attention, affection, and future plans. It feels like a movie... until it crashes.</p>
+                <h3>The Wound Underneath</h3>
+                <p>Love bombing feels good because you're starving. If you grew up with emotional neglect or inconsistent affection, the flood of attention feels like finally being fed after years of hunger.</p>
+                <h3>Signs This Is Your Pattern</h3>
+                <ul>
+                    <li>Relationships that burn hot and fast, then crash</li>
+                    <li>Being put on a pedestal (that eventually crumbles)</li>
+                    <li>Confusing intensity with intimacy</li>
+                    <li>The beginning is always the best part</li>
+                </ul>
+                <h3>The Healing Question</h3>
+                <p><em>What emptiness am I hoping someone else will fill?</em></p>
+            `
+        },
+        abandonment: {
+            title: "The One Who Leaves",
+            wound: "The Abandonment Wound",
+            description: `
+                <h3>What This Means</h3>
+                <p>You're always waiting for people to leave. Even when things are going well, you're bracing for impact. And sometimes, you leave first — just to avoid being left.</p>
+                <h3>The Wound Underneath</h3>
+                <p>If you experienced early abandonment — real or emotional — your nervous system learned that love is temporary. Now it constantly scans for evidence that this time will be the same.</p>
+                <h3>Signs This Is Your Pattern</h3>
+                <ul>
+                    <li>Anxiety when things are going "too well"</li>
+                    <li>Hypervigilance for signs they're pulling away</li>
+                    <li>Devastation from rejection that seems disproportionate</li>
+                    <li>Creating distance before they can leave you</li>
+                </ul>
+                <h3>The Healing Question</h3>
+                <p><em>Who left me first? And how do I abandon myself before others get the chance?</em></p>
+            `
+        },
+        rescuer: {
+            title: "The One Who Needs Saving",
+            wound: "The Rescuer Wound",
+            description: `
+                <h3>What This Means</h3>
+                <p>You're drawn to people in crisis, people with "potential," people who need you. Your love becomes a project — and projects are exhausting.</p>
+                <h3>The Wound Underneath</h3>
+                <p>The rescuer wound often comes from trying to save someone early in life. You learned that your worth comes from being useful, and love comes from being needed.</p>
+                <h3>Signs This Is Your Pattern</h3>
+                <ul>
+                    <li>Attracted to people in transition or crisis</li>
+                    <li>Seeing potential instead of reality</li>
+                    <li>Giving more than you receive</li>
+                    <li>Staying because "they need me"</li>
+                </ul>
+                <h3>The Healing Question</h3>
+                <p><em>What would I have to feel if I wasn't focused on someone else's chaos?</em></p>
+            `
+        },
+        worthiness: {
+            title: "The One Who Controls",
+            wound: "The Worthiness Wound",
+            description: `
+                <h3>What This Means</h3>
+                <p>You're drawn to people with strong opinions — about what you wear, who you see, how you live. At first it feels like being chosen. Slowly, you start to disappear.</p>
+                <h3>The Wound Underneath</h3>
+                <p>Control feels comfortable when you don't trust yourself. When somewhere deep down, you believe your judgment is flawed and someone else always knows better.</p>
+                <h3>Signs This Is Your Pattern</h3>
+                <ul>
+                    <li>Partners who make decisions for both of you</li>
+                    <li>Walking on eggshells to avoid disappointment</li>
+                    <li>Changing yourself to fit their expectations</li>
+                    <li>Confusing control with care</li>
+                </ul>
+                <h3>The Healing Question</h3>
+                <p><em>When did I stop trusting myself? What parts of me did I abandon to be loved?</em></p>
+            `
+        }
+    };
+
+    let currentQuestion = -1;
+    let scores = { unavailable: 0, lovebomber: 0, abandonment: 0, rescuer: 0, worthiness: 0 };
+
+    function startQuiz() {
+        document.getElementById('startSection').classList.remove('active');
+        currentQuestion = 0;
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const container = document.getElementById('questionsContainer');
+        const question = questions[currentQuestion];
+        const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
+
+        container.innerHTML = `
+            <div class="question-section active" id="question${currentQuestion}">
+                <p class="question-number">${String(currentQuestion + 1).padStart(2, '0')}</p>
+                <p class="question-text">${question.text}</p>
+                <div class="answer-options">
+                    ${shuffledOptions.map((opt) => `
+                        <label class="answer-option" onclick="selectAnswer('${opt.pattern}', this)">
+                            <input type="radio" name="q${currentQuestion}" value="${opt.pattern}">
+                            <span class="answer-circle"></span>
+                            <span class="answer-text">${opt.text}</span>
+                        </label>
+                    `).join('')}
+                </div>
+                <div class="quiz-nav">
+                    <button class="quiz-btn quiz-btn-back" onclick="prevQuestion()" ${currentQuestion === 0 ? 'style="visibility:hidden"' : ''}>Back</button>
+                    <button class="quiz-btn quiz-btn-next" id="nextBtn" onclick="nextQuestion()" disabled>Next</button>
+                </div>
+            </div>
+        `;
+        updateProgress();
+    }
+
+    function selectAnswer(pattern, element) {
+        element.parentNode.querySelectorAll('.answer-option').forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+        element.querySelector('input').checked = true;
+        document.getElementById('nextBtn').disabled = false;
+    }
+
+    function nextQuestion() {
+        const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+        if (selected) scores[selected.value]++;
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            renderQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentQuestion > 0) {
+            const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+            if (selected) scores[selected.value]--;
+            currentQuestion--;
+            renderQuestion();
+        }
+    }
+
+    function updateProgress() {
+        const progress = ((currentQuestion + 1) / questions.length) * 100;
+        document.getElementById('progressFill').style.width = `${progress}%`;
+        document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    }
+
+    function showResults() {
+        document.getElementById('questionsContainer').innerHTML = '';
+        document.getElementById('resultsSection').classList.add('active');
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('progressText').textContent = 'Assessment Complete';
+
+        const maxScore = Math.max(...Object.values(scores));
+        const primaryPattern = Object.keys(scores).find(key => scores[key] === maxScore);
+        const pattern = patterns[primaryPattern];
+
+        document.getElementById('resultTitle').textContent = pattern.title;
+        document.getElementById('resultWound').textContent = pattern.wound;
+        document.getElementById('resultDescription').innerHTML = pattern.description;
+
+        const maxPossible = questions.length;
+        const breakdown = document.getElementById('scoresBreakdown');
+        const patternOrder = ['unavailable', 'lovebomber', 'abandonment', 'rescuer', 'worthiness'];
+        const patternNames = {
+            unavailable: 'Unavailable One',
+            lovebomber: 'Love Bomber',
+            abandonment: 'One Who Leaves',
+            rescuer: 'Rescuer',
+            worthiness: 'Controller'
+        };
+
+        breakdown.innerHTML = patternOrder.map(p => `
+            <div class="score-bar">
+                <span class="score-label">${patternNames[p]}</span>
+                <div class="score-track">
+                    <div class="score-fill" style="width: ${(scores[p] / maxPossible) * 100}%"></div>
+                </div>
+                <span class="score-value">${scores[p]}/${maxPossible}</span>
+            </div>
+        `).join('');
+    }
+    </script>
+</body>
+</html>

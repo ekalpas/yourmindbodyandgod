@@ -12,10 +12,11 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, var(--deep-ocean) 0%, var(--ocean-blue) 50%, var(--teal) 100%);
-    z-index: -1;
 }
 
 .course-hero-content {
+    position: relative;
+    z-index: 1;
     max-width: 800px;
     margin: 0 auto;
 }
@@ -26,7 +27,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--seafoam);
+    color: var(--white);
     margin-bottom: var(--spacing-sm);
 }
 
@@ -39,7 +40,8 @@
 
 .course-hero-tagline {
     font-size: 1.375rem;
-    color: var(--mist);
+    color: var(--white);
+    opacity: 0.9;
     margin-bottom: var(--spacing-md);
 }
 
@@ -53,9 +55,10 @@
 
 .course-hero-meta span {
     font-size: 0.9375rem;
-    color: var(--sky-water);
+    color: var(--white);
     padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--radius-sm);
 }
 
